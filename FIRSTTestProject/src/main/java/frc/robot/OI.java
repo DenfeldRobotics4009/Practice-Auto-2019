@@ -49,7 +49,7 @@ public class OI {
     Button zen19 = new JoystickButton(operator, 9);
     Button zen20 = new JoystickButton(operator, 10);
     Button zen21 = new JoystickButton(operator, 11);
-    Button zen22 = new JoystickButton(operator, 12);
+    Button zen2B = new JoystickButton(operator, 12);
 
 
     
