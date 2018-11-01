@@ -27,11 +27,11 @@ public class Zoomy extends Subsystem {
 
 
     public Zoomy() {
-        can0 = new WPI_TalonSRX(fl); //FL
-        can1 = new WPI_TalonSRX(fr); //FR
-        can2 = new WPI_TalonSRX(bl); //BL
+        can0 = new WPI_TalonSRX(0); //FL
+        can1 = new WPI_TalonSRX(1); //FR
+        can2 = new WPI_TalonSRX(2); //BL
 
-        vichtor = new Victor(br); //BR
+        vichtor = new Victor(0); //BR
 
         drive1 = new MecanumDrive(can0, can2, can1, vichtor);
 
