@@ -58,7 +58,7 @@ public class Zoomy extends Subsystem {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-    public void arcadeDrive(double strafe, double forward, double twist){
+    public void arcadeDrive(double strafe, double forward, double twist) {
       drive1.driveCartesian(strafe, forward, twist);
   }
 
