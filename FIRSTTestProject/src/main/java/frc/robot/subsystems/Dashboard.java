@@ -8,6 +8,10 @@
 package main.java.frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.subsystems.Zoomy;
+import frc.robot.Robot;
+
+
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -16,8 +20,10 @@ public class Dashboard extends Subsystem {
 
 
   public Dashboard(){
-    
-
+  Smartdashboard.putNumber("encoder Rticks", robot.subsystems.lwheel.getRaw());
+  Smartdashboard.putNumber("encoder Lticks", robot.subsystems.rwheel.getRaw());
+  Smartdashboard.putNumber("lrate", robot.subsystems.lwheel.getRate());
+  Smartdashboard.putNumber("Rrate", robot.subsystems.lwheel.getRate());
   }
     
   // Put methods for controlling this subsystem
