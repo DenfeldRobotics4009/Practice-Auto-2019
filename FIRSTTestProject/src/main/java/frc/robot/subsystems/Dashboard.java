@@ -20,10 +20,10 @@ public class Dashboard extends Subsystem {
 
 
   public Dashboard(){
-  Smartdashboard.putNumber("encoder Rticks", robot.subsystems.lwheel.getRaw());
-  Smartdashboard.putNumber("encoder Lticks", robot.subsystems.rwheel.getRaw());
-  Smartdashboard.putNumber("lrate", robot.subsystems.lwheel.getRate());
-  Smartdashboard.putNumber("Rrate", robot.subsystems.lwheel.getRate());
+  Smartdashboard.putNumber("encoder Rticks", robot.zoomy.lwheel.getRaw());
+  Smartdashboard.putNumber("encoder Lticks", robot.zoomy.rwheel.getRaw());
+  Smartdashboard.putNumber("lrate", robot.zoomy.lwheel.getRate());
+  Smartdashboard.putNumber("Rrate", robot.zoomy.lwheel.getRate());
   }
     
   // Put methods for controlling this subsystem
