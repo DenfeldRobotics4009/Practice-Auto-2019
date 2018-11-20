@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
     
     zoomy = new Zoomy();
     m_oi = new OI();
-    dashboard = new Dashboard();
+   
     
     m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
@@ -129,6 +129,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+    Smartdashboard.putNumber("Ltotal", robot.zoomy.lwheel.getRaw());
   }
 
   /**
