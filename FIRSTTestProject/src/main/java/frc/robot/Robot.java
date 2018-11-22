@@ -129,6 +129,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    Smartdashboard.putNumber("encoder Rticks", robot.zoomy.lwheel.getRaw());
+    Smartdashboard.putNumber("encoder Lticks", robot.zoomy.rwheel.getRaw());
+    Smartdashboard.putNumber("lrate", robot.zoomy.lwheel.getRate());
+    Smartdashboard.putNumber("Rrate", robot.zoomy.lwheel.getRate());
   }
 
   /**
