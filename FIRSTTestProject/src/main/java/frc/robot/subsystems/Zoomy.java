@@ -16,7 +16,7 @@ import frc.robot.commands.Zippy;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Gyrobase;
 import edu.wpi.first.wpilibj.SensorBase;
-import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.SPI;
 
 
 /**
@@ -29,6 +29,7 @@ public class Zoomy extends Subsystem {
     public MecanumDrive drive1;
     public ADXRS450_Gyro spinny;
 
+   
 
 
 
@@ -41,13 +42,15 @@ public class Zoomy extends Subsystem {
 
         drive1 = new MecanumDrive(can0, can2, can1, vichtor);
 
-        spinny = new ADXRS450_Gyro(kOnboardCS0);
+        spinny = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
         // Max Velocity = 6.54
         // Max Acceleration
         // Max Jerk
         lwheel = new Encoder(2, 3, false, Encoder.Encodingtype.k4X);
         rwheel = new Encoder(0, 1, false, Encoder.Encodingtype.k4X);
+
+        spinny.calibrate();
 
         lwheel.setMaxPeriod(.1);
 		lwheel.setMinRate(10);

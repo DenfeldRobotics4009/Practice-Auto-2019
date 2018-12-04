@@ -132,6 +132,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("encoder Lticks", Robot.zoomy.rwheel.getRaw());
     SmartDashboard.putNumber("lrate", Robot.zoomy.lwheel.getRate());
     SmartDashboard.putNumber("Rrate", Robot.zoomy.lwheel.getRate());
+    SmartDashboard.putNumber("angle", Robot.zoomy.spinny.getAngle());
 
   }
 
