@@ -13,6 +13,11 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Zippy;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Gyrobase;
+import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.wpilibj.SPI.Port;
+
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -22,6 +27,7 @@ public class Zoomy extends Subsystem {
     public Victor vichtor;
     public Encoder lwheel, rwheel;
     public MecanumDrive drive1;
+    public ADXRS450_Gyro spinny;
 
 
 
@@ -34,6 +40,8 @@ public class Zoomy extends Subsystem {
         vichtor = new Victor(0); //BR
 
         drive1 = new MecanumDrive(can0, can2, can1, vichtor);
+
+        spinny = new ADXRS450_Gyro(kOnboardCS0);
 
         // Max Velocity = 6.54
         // Max Acceleration
