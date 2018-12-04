@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Zoomy;
-import frc.robot.subsystems.Dashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,7 +26,6 @@ import frc.robot.subsystems.Dashboard;
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static Zoomy zoomy;
-  public static Dashboard dashboard;
   public static OI m_oi;
 
   Command m_autonomousCommand;
@@ -129,8 +127,15 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+<<<<<<< HEAD
 
     Smartdashboard.putNumber("Ltotal", robot.zoomy.lwheel.getRaw());
+=======
+    SmartDashboard.putNumber("encoder Rticks", Robot.zoomy.lwheel.getRaw());
+    SmartDashboard.putNumber("encoder Lticks", Robot.zoomy.rwheel.getRaw());
+    SmartDashboard.putNumber("lrate", Robot.zoomy.lwheel.getRate());
+    SmartDashboard.putNumber("Rrate", Robot.zoomy.lwheel.getRate());
+>>>>>>> 86c8ebbf48d6af0eadce103eae2f74d46b8951dc
   }
 
   /**
