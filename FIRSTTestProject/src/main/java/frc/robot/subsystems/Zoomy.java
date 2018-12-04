@@ -38,8 +38,8 @@ public class Zoomy extends Subsystem {
         // Max Velocity = 6.54
         // Max Acceleration
         // Max Jerk
-        lwheel = new Encoder(3, 2, false, Encoder.Encodingtype.k4X);
-        rwheel = new Encoder(1, 0, false, Encoder.Encodingtype.k4X);
+        lwheel = new Encoder(2, 3, false, Encoder.Encodingtype.k4X);
+        rwheel = new Encoder(0, 1, false, Encoder.Encodingtype.k4X);
 
         lwheel.setMaxPeriod(.1);
 		lwheel.setMinRate(10);
