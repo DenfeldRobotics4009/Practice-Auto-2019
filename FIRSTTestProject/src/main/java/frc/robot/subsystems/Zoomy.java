@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Zippy;
-//import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-//import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 
 
 /**
@@ -25,7 +25,7 @@ public class Zoomy extends Subsystem {
     public Victor vichtor;
     public Encoder lwheel, rwheel;
     public MecanumDrive drive1;
-    //public ADXRS450_Gyro spinny;
+    public ADXRS450_Gyro spinny;
 
    
 
@@ -40,7 +40,7 @@ public class Zoomy extends Subsystem {
 
         drive1 = new MecanumDrive(can0, can2, can1, vichtor);
 
-      //  spinny = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+        spinny = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
         // Max Velocity = 6.54
         // Max Acceleration
@@ -48,7 +48,7 @@ public class Zoomy extends Subsystem {
         lwheel = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
         rwheel = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 
-        //spinny.calibrate();
+        spinny.calibrate();
 
         lwheel.setMaxPeriod(.1);
 		lwheel.setMinRate(5);
@@ -59,7 +59,8 @@ public class Zoomy extends Subsystem {
 		rwheel.setMinRate(5);
 		rwheel.setDistancePerPulse(1/1440);
 		rwheel.setReverseDirection(false);
-		rwheel.setSamplesToAverage(7);
+        rwheel.setSamplesToAverage(7);
+        
         //it seems to be 1440 ticks per revolution
 
     }
