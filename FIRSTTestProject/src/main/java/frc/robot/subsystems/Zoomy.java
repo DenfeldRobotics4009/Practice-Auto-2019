@@ -51,16 +51,16 @@ public class Zoomy extends Subsystem {
         //spinny.calibrate();
 
         lwheel.setMaxPeriod(.1);
-		lwheel.setMinRate(10);
+		lwheel.setMinRate(5);
 		lwheel.setReverseDirection(false);
         lwheel.setSamplesToAverage(7);
 
         rwheel.setMaxPeriod(.1);
-		rwheel.setMinRate(10);
+		rwheel.setMinRate(5);
 		rwheel.setDistancePerPulse(1/1440);
 		rwheel.setReverseDirection(false);
 		rwheel.setSamplesToAverage(7);
-
+        //it seems to be 1440 ticks per revolution
 
     }
 // Put methods for controlling this subsystem
