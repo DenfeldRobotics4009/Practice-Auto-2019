@@ -20,7 +20,7 @@ import frc.robot.commands.Zippy;
 public class Zoomy extends Subsystem {
     public WPI_TalonSRX can0, can2, can1;
     public Victor vichtor;
-    public Encoder lwheel, rwheel;
+    public Encoder Leftwheel, Rightwheel;
     public MecanumDrive drive1;
 
 
@@ -38,20 +38,20 @@ public class Zoomy extends Subsystem {
         // Max Velocity = 6.54
         // Max Acceleration
         // Max Jerk
-        lwheel = new Encoder(2, 3, false, Encoder.Encodingtype.k4X);
-        rwheel = new Encoder(0, 1, false, Encoder.Encodingtype.k4X);
+        Leftwheel = new Encoder(2, 3, false, Encoder.Encodingtype.k4X);
+        Rightwheel = new Encoder(0, 1, false, Encoder.Encodingtype.k4X);
 
-        lwheel.setMaxPeriod(.1);
-		lwheel.setMinRate(10);
-		lwheel.setDistancePerPulse(1/1440);
-		lwheel.setReverseDirection(false);
-        lwheel.setSamplesToAverage(7);
+        Leftwheel.setMaxPeriod(.1);
+		Leftwheel.setMinRate(10);
+		Leftwheel.setDistancePerPulse(1/1440);
+		Leftwheel.setReverseDirection(false);
+        Leftwheel.setSamplesToAverage(7);
 
-        rwheel.setMaxPeriod(.1);
-		rwheel.setMinRate(10);
-		rwheel.setDistancePerPulse(1/1440);
-		rwheel.setReverseDirection(false);
-		rwheel.setSamplesToAverage(7);
+        Rightwheel.setMaxPeriod(.1);
+		Rightwheel.setMinRate(10);
+		Rightwheel.setDistancePerPulse(1/1440);
+		Rightwheel.setReverseDirection(false);
+		Rightwheel.setSamplesToAverage(7);
 
 
     }
