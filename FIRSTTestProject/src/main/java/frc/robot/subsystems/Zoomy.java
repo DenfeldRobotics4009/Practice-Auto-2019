@@ -23,7 +23,6 @@ import edu.wpi.first.wpilibj.SPI;
 public class Zoomy extends Subsystem {
     public WPI_TalonSRX can0, can2, can1;
     public Victor vichtor;
-    public Encoder lwheel, rwheel;
     public MecanumDrive drive1;
     public ADXRS450_Gyro spinny;
 
@@ -43,25 +42,12 @@ public class Zoomy extends Subsystem {
         spinny = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
         // Max Velocity = 6.54
-        // Max Acceleration
-        // Max Jerk
-        lwheel = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-        rwheel = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-
+        // Max Acceleration = 1.66 M/s/s
+        // Max Jerk = 29.49 M/s/s/s
+        // Wheel Circumference = 47.88 cm
+        // Wheel Base = 60.96 cm
         spinny.calibrate();
 
-        lwheel.setMaxPeriod(.1);
-		lwheel.setMinRate(5);
-		lwheel.setReverseDirection(false);
-        lwheel.setSamplesToAverage(7);
-
-        rwheel.setMaxPeriod(.1);
-		rwheel.setMinRate(5);
-		rwheel.setDistancePerPulse(1/1440);
-		rwheel.setReverseDirection(false);
-        rwheel.setSamplesToAverage(7);
-        
-        //it seems to be 1440 ticks per revolution
 
     }
 // Put methods for controlling this subsystem
