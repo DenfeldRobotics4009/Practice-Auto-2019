@@ -30,7 +30,7 @@ public class Points extends Subsystem {
       new Waypoint(2, 2, Pathfinder.d2r(45)),
       new Waypoint(1, 2, Pathfinder.d2r(180)),
       new Waypoint(3, 2, Pathfinder.d2r(0)),
-      new Waypoint(2, 2, Pathfinder.d2r(225)),
+      new Waypoint(2, 2, Pathfinder.d2r(-135)),
       new Waypoint(0, 0, Pathfinder.d2r(180))
       
     };
