@@ -9,10 +9,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Victor;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Zippy;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
+
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -20,9 +22,11 @@ import frc.robot.commands.Zippy;
 public class Zoomy extends Subsystem {
     public WPI_TalonSRX can0, can2, can1;
     public Victor vichtor;
-    public Encoder Leftwheel, Rightwheel;
-    public MecanumDrive drive1;
 
+    public MecanumDrive drive1;
+    public ADXRS450_Gyro spinny;
+
+   
 
 
 
@@ -35,23 +39,14 @@ public class Zoomy extends Subsystem {
 
         drive1 = new MecanumDrive(can0, can2, can1, vichtor);
 
+        spinny = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+
         // Max Velocity = 6.54
-        // Max Acceleration
-        // Max Jerk
-        Leftwheel = new Encoder(2, 3, false, Encoder.Encodingtype.k4X);
-        Rightwheel = new Encoder(0, 1, false, Encoder.Encodingtype.k4X);
-
-        Leftwheel.setMaxPeriod(.1);
-		Leftwheel.setMinRate(10);
-		Leftwheel.setDistancePerPulse(1/1440);
-		Leftwheel.setReverseDirection(false);
-        Leftwheel.setSamplesToAverage(7);
-
-        Rightwheel.setMaxPeriod(.1);
-		Rightwheel.setMinRate(10);
-		Rightwheel.setDistancePerPulse(1/1440);
-		Rightwheel.setReverseDirection(false);
-		Rightwheel.setSamplesToAverage(7);
+        // Max Acceleration = 1.66 M/s/s
+        // Max Jerk = 29.49 M/s/s/s
+        // Wheel Circumference = 47.88 cm
+        // Wheel Base = 60.96 cm
+        spinny.calibrate();
 
 
     }
