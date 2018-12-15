@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Zoomy;
+import frc.robot.subsystems.driveEncoders;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +26,7 @@ import frc.robot.subsystems.Zoomy;
  */
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static DriveEncoders driveencoders;
   public static Zoomy zoomy;
   public static OI m_oi;
 
@@ -38,10 +40,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     
-    
+    driveencoders = new DriveEncoders();
     zoomy = new Zoomy();
     m_oi = new OI();
-    dashboard = new Dashboard();
+  
     
     m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
@@ -127,10 +129,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    SmartDashboard.putNumber("encoder Rticks", Robot.zoomy.Leftwheel.getRaw());
-    SmartDashboard.putNumber("encoder Lticks", Robot.zoomy.Rightwheel.getRaw());
-    SmartDashboard.putNumber("lrate", Robot.zoomy.Leftwheel.getRate());
-    SmartDashboard.putNumber("Rrate", Robot.zoomy.Rightwheel.getRate());
+    SmartDashboard.putNumber("encoder Rticks", Robot.driveencoders.lwheel.getRaw());
+    SmartDashboard.putNumber("encoder Lticks", Robot.driveencoders.rwheel.getRaw());
+    SmartDashboard.putNumber("lrate", Robot.driveencoders.Leftwheel.getRate());
+    SmartDashboard.putNumber("Rrate", Robot.driveencoders.Rightwheel.getRate());
   }
 
   /**
