@@ -43,7 +43,6 @@ public class Zippy extends Command {
   final double twistDZ = 0.35;
   final double strafeDZ = 0.2;
   double pScale;
-  double heading;
       
   if (pTrig) {
   pScale = 1;

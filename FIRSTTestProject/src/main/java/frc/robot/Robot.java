@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Zoomy;
+import frc.robot.subsystems.driveEncoders;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,8 +26,10 @@ import frc.robot.subsystems.Zoomy;
  */
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
-  public static OI m_oi;
+  public static driveEncoders driveencoders;
   public static Zoomy zoomy;
+  public static OI m_oi;
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -37,8 +40,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     
-    m_oi = new OI();
+    driveencoders = new driveEncoders();
     zoomy = new Zoomy();
+    m_oi = new OI();
+   
+    
     m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -83,6 +89,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+   
     m_autonomousCommand = m_chooser.getSelected();
 
     /*
@@ -96,6 +103,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
+
   }
 
   /**
@@ -108,6 +116,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+   
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -123,6 +132,13 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+    SmartDashboard.putNumber("encoder Rticks", Robot.driveencoders.lwheel.getRaw());
+    SmartDashboard.putNumber("encoder Lticks", Robot.driveencoders.rwheel.getRaw());
+    SmartDashboard.putNumber("lrate", Robot.driveencoders.lwheel.getRate());
+    SmartDashboard.putNumber("Rrate", Robot.driveencoders.lwheel.getRate());
+    SmartDashboard.putNumber("angle", Robot.zoomy.spinny.getAngle());
+
   }
 
   /**
