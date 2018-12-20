@@ -5,7 +5,7 @@ import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
 
 public class Generator {
-
+  
     public Generator(){
     }
         public static void main (String[] args){
