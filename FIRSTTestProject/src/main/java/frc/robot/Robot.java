@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Zoomy;
-import frc.robot.subsystems.driveEncoders;
+import frc.robot.subsystems.DriveEncoders;
+import frc.robot.subsystems.Points;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +27,7 @@ import frc.robot.subsystems.driveEncoders;
  */
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static Points points;
   public static DriveEncoders driveencoders;
   public static Zoomy zoomy;
   public static OI m_oi;
@@ -39,7 +41,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
+    points = new Points();
     driveencoders = new DriveEncoders();
     zoomy = new Zoomy();
     m_oi = new OI();
@@ -131,8 +133,9 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     SmartDashboard.putNumber("encoder Rticks", Robot.driveencoders.lwheel.getRaw());
     SmartDashboard.putNumber("encoder Lticks", Robot.driveencoders.rwheel.getRaw());
-    SmartDashboard.putNumber("lrate", Robot.driveencoders.Leftwheel.getRate());
-    SmartDashboard.putNumber("Rrate", Robot.driveencoders.Rightwheel.getRate());
+    SmartDashboard.putNumber("lrate", Robot.driveencoders.lwheel.getRate());
+    SmartDashboard.putNumber("Rrate", Robot.driveencoders.rwheel.getRate());
+    SmartDashboard.putNumber("angle", Robot.zoomy.spinny.getAngle());
   }
 
   /**

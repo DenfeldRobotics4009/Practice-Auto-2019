@@ -15,10 +15,10 @@ import frc.robot.commands.EncoderConfig;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class driveEncoders extends Subsystem {
+public class DriveEncoders extends Subsystem {
     public Encoder lwheel, rwheel;
 
-    public driveEncoders() {
+    public DriveEncoders() {
 
         lwheel = new Encoder(3, 2, false, Encoder.EncodingType.k4X);
         rwheel = new Encoder(0, 1, false, Encoder.EncodingType.k4X);

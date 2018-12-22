@@ -14,13 +14,19 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
+import frc.robot.subsystems.Points;
+import frc.robot.subsystems.Zoomy;
 
 public class Profile extends Command {
-    Trajectory left, right;
-public EncoderFollower follow = new EncoderFollower();
+
+  public Trajectory left, right;
+  EncoderFollower follow;
+
 
   public Profile() {
       requires(Robot.zoomy);
+      requires(Robot.points);
+      requires(Robot.driveencoders);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
 
