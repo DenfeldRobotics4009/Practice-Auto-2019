@@ -9,46 +9,100 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import jaci.pathfinder.followers.*;
+import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
-import frc.robot.subsystems.Points;
-import frc.robot.subsystems.Zoomy;
 
 public class Profile extends Command {
+  TankModifier modifier;
+  Trajectory trajectory;
+  Trajectory left;
+  Trajectory right;
 
-  public Trajectory left, right;
-  EncoderFollower follow;
+    EncoderFollower leftside;
+    EncoderFollower rightside;
+
+    Waypoint[] places, goings;
+
+    public static double kP = 0.8;
+    public static double kI = 0;
+    public static double kD = 0.4;
+    public static double kV = (1/6.54);
+    public static double kA = 1;
 
 
-  public Profile() {
-      requires(Robot.zoomy);
-      requires(Robot.points);
-      requires(Robot.driveencoders);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+
+  public Profile(Waypoint[] places) {
+
+     
+
+      Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 6.54, 1.66, 24.49);
+      places = new Waypoint[] {
+  
+        new Waypoint(2, 2, Pathfinder.d2r(45)),
+        new Waypoint(1, 2, Pathfinder.d2r(180)),
+        new Waypoint(3, 2, Pathfinder.d2r(0)),
+        new Waypoint(2, 2, Pathfinder.d2r(-135)),
+        new Waypoint(0, 0, Pathfinder.d2r(180))
+        
+      };
+  
+      trajectory = Pathfinder.generate(places, config);
+  
+      modifier = new TankModifier(trajectory).modify(.6096);
+  
+      left = modifier.getLeftTrajectory();
+      right = modifier.getRightTrajectory();
+
+
+  
 
   }
+  public Profile(){
+    requires(Robot.zoomy);
+    requires(Robot.driveencoders);
+  }
+ 
 
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-      follow.configureEncoder(0,1440,15.24);
-      follow.configurePIDVA(0.8, 0, 0.8, (1/6.54), 0);
+     Robot.driveencoders.lwheel.reset();
+     Robot.driveencoders.rwheel.reset();
+     Robot.zoomy.spinny.reset();
+     leftside = new EncoderFollower(left);
+     rightside = new EncoderFollower(right);
+     leftside.configurePIDVA(kP, kI, kD, kV, kA);
+     rightside.configurePIDVA(kP, kI, kD, kV, kA);
+
+     leftside.configureEncoder(0, 1440, .1524);
+     rightside.configureEncoder(0, 1440, .1524);
+
 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
+    Robot.zoomy.can0.set(leftside.calculate(Robot.driveencoders.lwheel.getRaw()));
+    Robot.zoomy.can2.set(leftside.calculate(Robot.driveencoders.lwheel.getRaw()));
+    Robot.zoomy.can1.set(rightside.calculate(Robot.driveencoders.rwheel.getRaw()));
+    Robot.zoomy.vichtor.set(rightside.calculate(Robot.driveencoders.rwheel.getRaw()));
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true; //follow.segment >= trajectory.length();
+    if (leftside.isFinished() && rightside.isFinished()){
+      return true;
+    }
+    else {
+      return false;
+    } 
   }
 
   // Called once after isFinished returns true
