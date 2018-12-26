@@ -24,12 +24,12 @@ public class Profile extends Command {
     ModifiedEncoderFollower leftside;
     ModifiedEncoderFollower rightside;
 
-    Waypoint[] places, goings;
+    Waypoint[] places;
 
     //subject to tuning
     public static final double kP = 0.4;
     public static final double kI = 0;
-    public static final double kD = 0.4;
+    public static final double kD = 0;
     public static final double kV = (1/6.54);
     public static final double kA = 0;
 
@@ -73,8 +73,12 @@ public class Profile extends Command {
      Robot.driveencoders.lwheel.reset();
      Robot.driveencoders.rwheel.reset();
      Robot.zoomy.spinny.reset();
+
+
      leftside = new ModifiedEncoderFollower(left);
      rightside = new ModifiedEncoderFollower(right);
+
+
      leftside.configurePIDVA(kP, kI, kD, kV, kA);
      rightside.configurePIDVA(kP, kI, kD, kV, kA);
 

@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.EncoderConfig;
+
 
 
 /**
@@ -35,7 +35,7 @@ public class DriveEncoders extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-        setDefaultCommand(new EncoderConfig());
+     
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }

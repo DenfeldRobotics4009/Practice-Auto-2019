@@ -61,6 +61,12 @@ public class ModifiedEncoderFollower {
      * @param OnRight               Whether or not the wheels are on the right side
      */
     public void configureEncoder(int initial_position, int ticks_per_revolution, double wheel_diameter, boolean OnRight) {
+        if (OnRight){
+            this.OnRight = true;
+        }
+        else {
+            this.OnRight = false;
+        }
         encoder_offset = initial_position;
         encoder_tick_count = ticks_per_revolution;
         wheel_circumference = Math.PI * wheel_diameter;
@@ -94,6 +100,7 @@ public class ModifiedEncoderFollower {
             last_error = error;
             heading = seg.heading;
             segment++;
+            
             if (!OnRight){
             return calculated_value;
             }
