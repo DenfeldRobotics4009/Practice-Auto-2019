@@ -26,11 +26,12 @@ public class Profile extends Command {
 
     Waypoint[] places, goings;
 
-    public static double kP = 0.8;
-    public static double kI = 0;
-    public static double kD = 0.4;
-    public static double kV = (1/6.54);
-    public static double kA = 1;
+    //subject to tuning
+    public static final double kP = 0.4;
+    public static final double kI = 0;
+    public static final double kD = 0.4;
+    public static final double kV = (1/6.54);
+    public static final double kA = 0;
 
 
 
