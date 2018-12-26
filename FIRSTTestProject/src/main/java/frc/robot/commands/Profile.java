@@ -9,36 +9,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-<<<<<<< HEAD
-import frc.robot.PathGeneration.Generator;
-import jaci.pathfinder.followers.*;
-=======
-import jaci.pathfinder.followers.EncoderFollower;
+import frc.Resources.ModifiedEncoderFollower;
 import jaci.pathfinder.Pathfinder;
->>>>>>> master
 import jaci.pathfinder.Trajectory;
-
+import jaci.pathfinder.Waypoint;
+import jaci.pathfinder.modifiers.TankModifier;
 
 public class Profile extends Command {
-<<<<<<< HEAD
-  Trajectory left;
-  public Generator generator = new Generator();
-  public EncoderFollower follow = new EncoderFollower();
-
-  public Profile() {
-      requires(Robot.zoomy);
-      requires(Robot.driveencoders);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-=======
   TankModifier modifier;
   Trajectory trajectory;
   Trajectory left;
   Trajectory right;
 
-    EncoderFollower leftside;
-    EncoderFollower rightside;
->>>>>>> master
+    ModifiedEncoderFollower leftside;
+    ModifiedEncoderFollower rightside;
 
     Waypoint[] places, goings;
 
@@ -86,23 +70,17 @@ public class Profile extends Command {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-<<<<<<< HEAD
-      follow.configureEncoder(0,1440,15.24);
-      follow.configurePIDVA(0.8, 0, 0.8, (1/6.54), 0);
-      
-=======
      Robot.driveencoders.lwheel.reset();
      Robot.driveencoders.rwheel.reset();
      Robot.zoomy.spinny.reset();
-     leftside = new EncoderFollower(left);
-     rightside = new EncoderFollower(right);
+     leftside = new ModifiedEncoderFollower(left);
+     rightside = new ModifiedEncoderFollower(right);
      leftside.configurePIDVA(kP, kI, kD, kV, kA);
      rightside.configurePIDVA(kP, kI, kD, kV, kA);
 
-     leftside.configureEncoder(0, 1440, .1524);
-     rightside.configureEncoder(0, 1440, .1524);
+     leftside.configureEncoder(0, 1440, .1524, false);
+     rightside.configureEncoder(0, 1440, .1524, true);
 
->>>>>>> master
 
   }
 
