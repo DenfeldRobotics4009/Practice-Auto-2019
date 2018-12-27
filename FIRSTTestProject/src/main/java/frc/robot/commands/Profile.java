@@ -42,9 +42,9 @@ public class Profile extends Command {
       Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 6.54, 1.66, 24.49);
       places = new Waypoint[] {
   
-        new Waypoint(2, 2, Pathfinder.d2r(45)),
+        new Waypoint(1, 1, Pathfinder.d2r(45)),
         new Waypoint(1, 2, Pathfinder.d2r(180)),
-        new Waypoint(3, 2, Pathfinder.d2r(0)),
+        new Waypoint(2, 1, Pathfinder.d2r(0)),
         new Waypoint(2, 2, Pathfinder.d2r(-135)),
         new Waypoint(0, 0, Pathfinder.d2r(180))
         
@@ -82,8 +82,8 @@ public class Profile extends Command {
      leftside.configurePIDVA(kP, kI, kD, kV, kA);
      rightside.configurePIDVA(kP, kI, kD, kV, kA);
 
-     leftside.configureEncoder(0, 1440, .1524, false);
-     rightside.configureEncoder(0, 1440, .1524, true);
+     leftside.configureEncoder(0, 1440, .1524, false, 0);
+     rightside.configureEncoder(0, 1440, .1524, true, 0);
 
 
   }
@@ -92,10 +92,10 @@ public class Profile extends Command {
   @Override
   protected void execute() {
     
-    Robot.zoomy.can0.set(leftside.calculate(Robot.driveencoders.lwheel.getRaw()));
-    Robot.zoomy.can2.set(leftside.calculate(Robot.driveencoders.lwheel.getRaw()));
-    Robot.zoomy.can1.set(rightside.calculate(Robot.driveencoders.rwheel.getRaw()));
-    Robot.zoomy.vichtor.set(rightside.calculate(Robot.driveencoders.rwheel.getRaw()));
+    Robot.zoomy.can0.set(leftside.calculate(Robot.driveencoders.lwheel.getRaw(), Robot.zoomy.spinny.getAngle() % 360));
+    Robot.zoomy.can2.set(leftside.calculate(Robot.driveencoders.lwheel.getRaw(), Robot.zoomy.spinny.getAngle() % 360 ));
+    Robot.zoomy.can1.set(rightside.calculate(Robot.driveencoders.rwheel.getRaw(), Robot.zoomy.spinny.getAngle() % 360));
+    Robot.zoomy.vichtor.set(rightside.calculate(Robot.driveencoders.rwheel.getRaw(), Robot.zoomy.spinny.getAngle() % 360));
 
   }
 

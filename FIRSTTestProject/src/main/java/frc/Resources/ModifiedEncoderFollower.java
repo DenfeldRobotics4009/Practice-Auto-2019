@@ -1,5 +1,6 @@
 package frc.Resources;
 
+import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
 /**
@@ -13,11 +14,11 @@ public class ModifiedEncoderFollower {
     boolean OnRight;
 
     int encoder_offset, encoder_tick_count;
-    double wheel_circumference;
+    double wheel_circumference, gyro_offset;
 
     double kp, ki, kd, kv, ka;
 
-    double last_error, heading;
+    double last_error, last_angleError, heading;
 
     int segment;
     Trajectory trajectory;
@@ -60,7 +61,7 @@ public class ModifiedEncoderFollower {
      * @param wheel_diameter        The diameter of your wheels (or pulleys for track systems) in meters
      * @param OnRight               Whether or not the wheels are on the right side
      */
-    public void configureEncoder(int initial_position, int ticks_per_revolution, double wheel_diameter, boolean OnRight) {
+    public void configureEncoder(int initial_position, int ticks_per_revolution, double wheel_diameter, boolean OnRight, double initial_angle) {
         if (OnRight){
             this.OnRight = true;
         }
@@ -70,13 +71,14 @@ public class ModifiedEncoderFollower {
         encoder_offset = initial_position;
         encoder_tick_count = ticks_per_revolution;
         wheel_circumference = Math.PI * wheel_diameter;
+        gyro_offset = initial_angle;
     }
 
     /**
      * Reset the follower to start again. Encoders must be reconfigured.
      */
     public void reset() {
-        last_error = 0; segment = 0;
+        last_error = 0; segment = 0; last_angleError = 0;
     }
 
     /**
@@ -86,27 +88,38 @@ public class ModifiedEncoderFollower {
      * @param encoder_tick The amount of ticks the encoder has currently measured.
      * @return             The desired output for your motor controller
      */
-    public double calculate(int encoder_tick) {
+    public double calculate(int encoder_tick, double gyro_reading) {
         // Number of Revolutions * Wheel Circumference
         double distance_covered = ((double)(encoder_tick - encoder_offset) / encoder_tick_count)
                 * wheel_circumference;
         if (segment < trajectory.length()) {
             Trajectory.Segment seg = trajectory.get(segment);
             double error = seg.position - distance_covered;
-            double calculated_value =
-                    kp * error +                                    // Proportional
+            double calculated_encoder_value;
+           
+            calculated_encoder_value =
+                    (kp * error +                                    // Proportional
                     kd * ((error - last_error) / seg.dt) +          // Derivative
-                    (kv * seg.velocity + ka * seg.acceleration);    // V and A Terms
+                    (kv * seg.velocity + ka * seg.acceleration)) * (OnRight ? -1 : 1);
+             
+
+              
+                // V and A Terms
             last_error = error;
-            heading = seg.heading;
+            heading = Pathfinder.boundHalfDegrees(Pathfinder.r2d(seg.heading));
+            double angleError = heading - (gyro_reading - gyro_offset);
+
+            double calculated_gyro_value =
+                kp * angleError +
+                kd * ((angleError - last_angleError) / seg.dt) +
+                (kv * seg.velocity + ka * seg.acceleration);
+            last_angleError = angleError;
             segment++;
+        
+          double calculated_value = calculated_gyro_value + calculated_encoder_value;
+
+         return calculated_value;
             
-            if (!OnRight){
-            return calculated_value;
-            }
-            else {
-                return calculated_value * -1;
-            }
         } else return 0;
     }
 
